@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Gaming Catalogue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index_styles.css') }}">
+</head>
+
+<body>
+
+<h1>Social Gaming Catalogue</h1>
+
+<nav>
+   <!-- each link gets its own button class -->
+   <div>
+        <a class="btn-dark-modern" href="{{ url_for('register') }}">Create Account</a>
+        <a class="btn-dark-modern" href="{{ url_for('sign_in') }}">Sign In</a>
+        <a class="btn-dark-modern" href="{{ url_for('user_profile') }}">View Profile</a>
+    </div>
+</nav>
+
+<hr>
+
+<form method="GET" action="{{ url_for('home') }}">
+    <input 
+        type="text" 
+        name="q" 
+        placeholder="Search by title, genre, developer..."
+        value="{{ query if query else '' }}">
+    <button class="btn-dark-modern" type="submit">Search</button>
+</form>
+
+<hr>
+
+<div class="games-list">
+    {% if games %}
+        {% for game in games %}
+            <div class="game-card">
+                <h3>{{ game.title }}</h3>
+                <p><strong>Genre:</strong> {{ game.genre }}</p>
+                <p><strong>Developer:</strong> {{ game.developer }}</p>
+                <p>{{ game.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No games found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

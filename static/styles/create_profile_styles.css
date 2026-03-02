@@ -1,0 +1,19 @@
+body{
+    text-align: center;
+}
+
+.parent {
+    display: grid;
+    /* 5 columns: 3 for the left (60%), 2 for the right (40%) */
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.account-section {
+    grid-column: span 2;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}

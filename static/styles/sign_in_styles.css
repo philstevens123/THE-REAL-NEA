@@ -1,0 +1,59 @@
+body{
+    text-align: center;
+}
+
+.parent {
+    display: grid;
+    /* 5 columns: 3 for the left (60%), 2 for the right (40%) */
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sign_in_box {
+    grid-column: span 3;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+/* Button styles reused from user_profile_styles.css */
+/* apply to the container, individual anchors, and buttons */
+.btn-dark-modern,
+.btn-dark-modern a,
+button.btn-dark-modern {
+  display: inline-block;
+  /* Layout & Sizing */
+  padding: 12px 32px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  outline: none;
+
+  /* Colors & Effects */
+  background-color: #bdbdbd; 
+  color: #000000;            /* Soft blue text color */
+  border: 1px solid #3e444d; /* Subtle border for definition */
+  text-decoration: none;
+  
+  /* The "Inset" look */
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 
+              0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover State */
+.btn-dark-modern:hover {
+  background-color: #999999;
+  border-color: #e6e5e5;     /* Border brightens on hover */
+  box-shadow: 0 0 12px rgba(88, 166, 255, 0.2); /* Soft outer glow */
+  transform: translateY(-1px);
+}
+
+/* Active (Click) State */
+.btn-dark-modern:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(151, 151, 151, 0.5);
+}

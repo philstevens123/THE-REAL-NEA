@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Create Profile</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/create_profile_styles.css">
+
+</head>
+
+<body>
+    <h1> Create Profile</h1>
+
+<form method = "POST" method = "/profile">
+    
+    <label for = "bio"><b>Bio</b></label>
+    <input type = "text" placeholder="Enter User Bio" name = "bio" required>
+
+    <br><br>
+
+    <label for = "top_5"><b>Top 5</b></label>
+    <input type = "text" placeholder = "Please enter your top 5 games" name = "top_5" required>
+
+    <br><br>
+
+    <label for = "recent"><b>Recent</b></label>
+    <input type = "text" placeholder = "Please enter the last 5 games you played" name = "recent" required>
+
+    <br><br>
+
+    <button type = "submit"> Create Profile </button>
+</form>
+
+<br><br>
+
+<a href="/"> Return Home</a>
+</body>
+
+</html>

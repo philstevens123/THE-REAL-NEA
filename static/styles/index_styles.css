@@ -1,0 +1,85 @@
+body {
+    text-align: center;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Main 2-column layout */
+.layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    padding: 40px;
+    align-items: start;
+}
+
+/* Left column stacks vertically */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Card styling */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Search results spacing */
+.games-list {
+    margin-top: 20px;
+}
+
+.game-card {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+input[type="text"] {
+    width: 65%;
+    padding: 6px;
+}
+
+/* Button styles reused from user_profile_styles.css */
+/* apply to the container, individual anchors, and buttons */
+.btn-dark-modern,
+.btn-dark-modern a,
+button.btn-dark-modern {
+  display: inline-block;
+  /* Layout & Sizing */
+  padding: 12px 32px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  outline: none;
+
+  /* Colors & Effects */
+  background-color: #bdbdbd; 
+  color: #000000;            /* Soft blue text color */
+  border: 1px solid #3e444d; /* Subtle border for definition */
+  text-decoration: none;
+  
+  /* The "Inset" look */
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 
+              0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover State */
+.btn-dark-modern:hover {
+  background-color: #999999;
+  border-color: #e6e5e5;     /* Border brightens on hover */
+  box-shadow: 0 0 12px rgba(88, 166, 255, 0.2); /* Soft outer glow */
+  transform: translateY(-1px);
+}
+
+/* Active (Click) State */
+.btn-dark-modern:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(151, 151, 151, 0.5);
+}

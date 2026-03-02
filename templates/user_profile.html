@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile_styles.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-column">
+        
+        <div class="card">
+            <h2>Your Account Details</h2>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+
+            {% if user.profile %}
+                <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+                <p><strong>Top 5 Games:</strong> {{ user.profile.top }}</p>
+                <p><strong>Recently Played:</strong> {{ user.profile.recent }}</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>Recent Reviews</h2>
+            <p>Your reviews will go here.</p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="card search-column">
+        <h2>Search Games</h2>
+
+        <form method="GET" action="{{ url_for('user_profile') }}">
+            <input 
+                type="text" 
+                name="q"
+                placeholder="Search games..."
+                value="{{ query if query else '' }}">
+            <button class="btn-dark-modern" type="submit">Search</button>
+        </form>
+
+        <p>{{ games|length }} result(s) found</p>
+
+        <div class="games-list">
+            {% for game in games %}
+                <div class="game-card">
+                    <h3>{{ game.title }}</h3>
+                    <p><strong>Genre:</strong> {{ game.genre }}</p>
+                    <p>{{ game.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<a href="/">Return Home</a>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+
+<link rel="stylesheet" type="text/css" href="/static/styles/create_account_styles.css">
+
+</head>
+
+<body>
+    <h1>Create Account</h1>    
+<form method = "POST" action ="/register">
+    
+    <label for="email"><b>Email</b></label>
+    <input type="email" placeholder="Enter Email" name="email" required>
+
+<br><br>
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="(max 15 characters)" maxlength="15" name="username" required>
+
+<br><br>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="(Minimum 5 characters)" minlength="5" name="password" required>
+
+<br><br>
+
+    <label for="confirm-password"><b>Confirm password</b></label>
+    <input type="password" placeholder="(Minimum 5 characters)" minlength="5" name="confirm-password" required>
+
+<br><br>
+
+    <button class="btn-dark-modern" type="submit">Create Account</button>
+</form>
+<br><br>
+    <a href="/">Return Home</a>
+</body>
+
+
+
+</html>
