@@ -6,19 +6,11 @@ import os
 
 app = Flask(__name__)
 
-# ==========================
-# CONFIG
-# ==========================
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'super_secret_key_change_this_later'
 
 db = SQLAlchemy(app)
-
-# ==========================
-# MODELS
-# ==========================
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -45,27 +37,25 @@ class Profile(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
 
-
-# ==========================
-# HELPERS
-# ==========================
-
 def load_data():
     if os.path.exists('games_db.json'):
         with open('games_db.json', 'r') as f:
             return json.load(f)
     return []
 
+
+
 def filter_games(query):
     all_games = load_data()
 
     if query:
-        return [g for g in all_games if query in str(g).lower()]
+        filtered = [g for g in all_games if query in str(g).lower()]
     else:
-        return all_games[:5]  # Show only first 5 by default
-# ==========================
-# ROUTES
-# ==========================
+        filtered = all_games[:5]  # Show only first 5 by default
+
+    sorted_games = sorted(filtered, key=lambda x: x.get('title', '').lower())
+
+    return sorted_games if query else sorted_games[:5]
 
 @app.route('/')
 def home():
@@ -178,11 +168,6 @@ def user_profile():
         games=filtered_games,
         query=query
     )
-
-
-# ==========================
-# RUN
-# ==========================
 
 if __name__ == '__main__':
     with app.app_context():
