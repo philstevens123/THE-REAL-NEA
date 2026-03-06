@@ -5,12 +5,10 @@
     <title>My Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile_styles.css') }}">
 </head>
-
 <body>
 
 <div class="layout">
 
-    <!-- LEFT COLUMN -->
     <div class="left-column">
         
         <div class="card">
@@ -25,21 +23,37 @@
         </div>
 
         <div class="card">
-            <h2>Recent Reviews</h2>
-            <p>Your reviews will go here.</p>
+            <h2>Your Game Reviews</h2>
+            {% if user.reviews %}
+                {% for review in user.reviews %}
+                    <div class="review-item" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="score-badge 
+                                {% if review.rating >= 75 %}high-score
+                                {% elif review.rating >= 50 %}med-score
+                                {% else %}low-score{% endif %}">
+                                {{ review.rating }}
+                            </span>
+                            <strong>{{ review.game_title }}</strong>
+                        </div>
+                        <p style="margin-top: 8px; color: #444; font-style: italic;">"{{ review.comment }}"</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>You haven't reviewed any games yet.</p>
+            {% endif %}
         </div>
 
     </div>
 
-    <!-- RIGHT COLUMN -->
     <div class="card search-column">
-        <h2>Search Games</h2>
+        <h2>Find & Rate Games</h2>
 
         <form method="GET" action="{{ url_for('user_profile') }}">
             <input 
                 type="text" 
                 name="q"
-                placeholder="Search games..."
+                placeholder="Search for a game to rate..."
                 value="{{ query if query else '' }}">
             <button class="btn-dark-modern" type="submit">Search</button>
         </form>
@@ -48,16 +62,37 @@
 
         <div class="games-list">
             {% for game in games %}
-                <div class="game-card">
+                <div class="game-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
                     <h3>{{ game.title }}</h3>
                     <p><strong>Genre:</strong> {{ game.genre }}</p>
-                    <p>{{ game.description }}</p>
+                    <p style="font-size: 0.9em;">{{ game.description }}</p>
+                    
+                    <div class="review-form-container" style="background: #f4f4f4; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        <form action="{{ url_for('rate_game', game_id=game.id) }}" method="POST">
+                            <input type="hidden" name="game_title" value="{{ game.title }}">
+                            
+                            <div style="margin-bottom: 8px;">
+                                <label>Score (1-100):</label>
+                                <input type="number" name="rating" min="1" max="100" required 
+                                       style="width: 60px; padding: 4px;" placeholder="Score">
+                            </div>
+
+                            <textarea name="comment" placeholder="Optional: What did you think?" rows="2" 
+                                      style="width: 100%; box-sizing: border-box;"></textarea>
+                            
+                            <button type="submit" class="btn-dark-modern" style="margin-top: 5px;">Submit Review</button>
+                        </form>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 
 </div>
-<a href="/">Return Home</a>
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/">Return Home</a> | <a href="/logout">Logout</a>
+</div>
+
 </body>
 </html>
