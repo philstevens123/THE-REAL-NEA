@@ -9,9 +9,17 @@
                 
 <body>
                     
-                        
     <h1>Sign In</h1>
-    <div class = "sign_in_box">
+
+    {% with messages = get_flashed_messages(category_filter=["sign_in_error"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="sign_in_box">
         <form action="{{ url_for('sign_in') }}" method="POST">
         
             <label for="username"><b>Username</b></label>
@@ -26,12 +34,12 @@
                                                                                     
             <button class="btn-dark-modern" type="submit">Sign in</button>
                                                                                                     
-            </form>
-            </div>
+        </form>
+    </div>
                                         
-            <br><br>
+    <br><br>
                                         
-            <a class="btn-dark-modern" href="/"> Return Home </a>
+    <a class="btn-dark-modern" href="/"> Return Home </a>
                                         
-    </body>
+</body>
 </html>

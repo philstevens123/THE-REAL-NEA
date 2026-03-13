@@ -43,7 +43,8 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.String(80), nullable=False)
     game_title = db.Column(db.String(120), nullable=False)
-    rating = db.Column(db.Integer, nullable=False) # Store 1-100
+    platform = db.Column(db.String(50), nullable=False) # <--- ADD THIS LINE
+    rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
@@ -82,12 +83,12 @@ def register():
         confirm_password = request.form.get('confirm-password')
 
         if password != confirm_password:
-            flash("Passwords do not match!")
+            flash("Passwords do not match!", "register_error")
             return redirect(url_for('register'))
 
         existing_user = User.query.filter((User.email == email) | (User.username == username)).first()
         if existing_user:
-            flash("Username or Email already in use!")
+            flash("Username or Email already in use!", "register_error")
             return redirect(url_for('register'))
 
         new_user = User(username=username, email=email)
@@ -111,7 +112,10 @@ def sign_in():
             if user.profile is None:
                 return redirect(url_for('create_profile'))
             return redirect(url_for('user_profile'))
-        flash("Invalid username or password.")
+
+        flash("Incorrect username or password.", "sign_in_error")
+        return redirect(url_for('sign_in'))
+
     return render_template('sign_in.html')
 
 @app.route('/create_profile', methods=['GET', 'POST'])
@@ -136,7 +140,7 @@ def create_profile():
 def user_profile():
     user_id = session.get('user_id')
     if not user_id:
-        flash("You must be logged in to view your profile.")
+        flash("You must be logged in to view your profile.", "profile_error")
         return redirect(url_for('sign_in'))
 
     user = User.query.get(user_id)
@@ -156,30 +160,30 @@ def rate_game(game_id):
         flash("Please log in to rate games.")
         return redirect(url_for('sign_in'))
 
-    try:
-        rating_val = int(request.form.get('rating'))
-    except (ValueError, TypeError):
-        flash("Invalid rating.")
-        return redirect(url_for('user_profile'))
-
-    if rating_val < 1 or rating_val > 100:
-        flash("Rating must be between 1 and 100.")
-        return redirect(url_for('user_profile'))
-
+    # Get data from form
+    platform = request.form.get('platform') # <--- GET PLATFORM
+    rating_val = int(request.form.get('rating'))
     comment = request.form.get('comment')
     game_title = request.form.get('game_title')
 
-    # Check for existing review to update, else create new
-    existing = Review.query.filter_by(user_id=user_id, game_id=game_id).first()
+    # Check for existing review on THIS platform for THIS game
+    existing = Review.query.filter_by(user_id=user_id, game_id=game_id, platform=platform).first()
+
     if existing:
         existing.rating = rating_val
         existing.comment = comment
-        flash(f"Updated review for {game_title}!")
+        flash(f"Updated {game_title} review for {platform}!")
     else:
-        new_rev = Review(game_id=game_id, game_title=game_title, rating=rating_val, 
-                         comment=comment, user_id=user_id)
+        new_rev = Review(
+            game_id=game_id, 
+            game_title=game_title, 
+            platform=platform, # <--- SAVE PLATFORM
+            rating=rating_val, 
+            comment=comment, 
+            user_id=user_id
+        )
         db.session.add(new_rev)
-        flash(f"Submitted review for {game_title}!")
+        flash(f"Submitted {game_title} review for {platform}!")
 
     db.session.commit()
     return redirect(url_for('user_profile'))

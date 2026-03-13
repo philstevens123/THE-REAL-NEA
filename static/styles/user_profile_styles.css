@@ -100,3 +100,151 @@ button.btn-dark-modern {
     font-size: 0.9em;
     margin-bottom: 10px;
 }
+
+:root {
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --primary: #1a1a1a;
+    --accent: #007bff;
+    --green: #66cc33;
+    --yellow: #ffcc33;
+    --red: #ff3300;
+    --border: #e1e4e8;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    color: #333;
+}
+
+.layout-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 350px;
+}
+
+.profile-card, .history-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.user-main { font-size: 1.4rem; color: var(--accent); }
+
+/* SCORE BADGES */
+.score-badge {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+.high-score { background: var(--green); }
+.med-score { background: var(--yellow); color: #222; }
+.low-score { background: var(--red); }
+
+.review-entry {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.platform-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex-grow: 1;
+}
+
+.search-header {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.game-rate-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer { text-align: center; padding-bottom: 40px; }
+.logout-link { color: var(--red); }
